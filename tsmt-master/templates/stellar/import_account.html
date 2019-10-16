@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>{% trans "Username" %}</label>
+                    <input type="text" class="form-control" name="username" value="{{username}}" placeholder="Username">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Secret Key</label>
+                    <input type="text" class="form-control" name="address" value="{{seed}}" placeholder="Secret Key">
+                </div>
+            </div>
+        </div>
+
+            <input class="btn btn-info" type="submit" value="submit">
+        </form>
+    </div>
+{% endblock %}

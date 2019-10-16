@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+{% block title %}{{ section.title }}{% endblock %}
+{% block content %}
+<fieldset class="settinggg">
+    <h2 style="text-align: center;" class='legend'>
+      {% trans "Accounts" %}  {% trans "Balances" %}
+    </h2>
+</fieldset>
+{% if  r %}
+<div class="account_detail">
+    <div class="account_dls">
+        <table class="table table-bordered bold">
+            {% for value in r %}
+            {% if value.asset_type == 'native' %}
+            <tr>
+                <td> {% trans "Asset" %}</td><td>{% trans "Lumen" %}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Balances" %}</td><td>{{ value.balance }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td>{% trans "Asset" %}</td><td>{{ value.asset_code }}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Balances" %}</td><td>{{ value.balance }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        <a href="/stellar/send/?currency={{ value.asset_type }}" class="btn btn-info" role="button">{% trans "Send" %}</a>
+        <a class="btn btn-info" href="#">{% trans "Import Account" %}</a>
+
+    </div>
+    <div class="">
+
+    </div>
+    <div class="">
+
+    </div>
+    <div class="">
+
+    </div>
+</div>
+
+{% else %}
+<div class="">
+    <div class="">
+        <table class="table table-bordered bold">
+            <tr>
+                <td>{% trans "Asset" %}</td><td>{% trans "Lumen" %}</td>
+            </tr>
+            <tr>
+                <td>{% trans "Balances" %}</td><td>1.00</td>
+            </tr>
+        </table>
+<!--        <button class="btn btn-primary" ><a href="/stellar/send/?currency={{ value.asset_type }}">Send</a></button>-->
+        <a href="/stellar/create_fund/" class="btn btn-info" role="button"> {% trans "Create Account" %}</a>
+    </div>
+    <div class="">
+
+    </div>
+    <div class="">
+
+    </div>
+    <div class="">
+
+    </div>
+</div>
+
+{% endif %}
+
+{% endblock %}
+

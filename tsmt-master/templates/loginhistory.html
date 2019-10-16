@@ -1,0 +1,25 @@
+
+{% extends "base.html"  %}
+ 
+
+ 
+{% block content %}
+ 
+    <div class="content">
+        <div class="section-inner clearfix">
+ 
+        <p>Welcome {{ request.user.username }} !</p>
+ 
+        <p>User Details:</p>
+ 
+        <ol>
+{% for x in username %}
+            {{x}}
+            {% endfor %}
+        </ol>
+ 
+
+        </div>
+    </div>
+ 
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+
+
+<h1>{{ section.title }}</h1>
+
+<nav>
+
+</nav>
+
+<h3 style="text-align: center;">{% trans "Enter Recipient" %}</h3>
+           <div class="login-page">
+              <div class="form">
+                <form class="login-form" method="POST" action="/stellar/send/">
+                    {% csrf_token %}
+                     <p><a class="btn btn-info" href="/stellar/Email_address">{% trans "Email" %}</a></p>
+                     <p > <a class="btn btn-info" href="/stellar/mobile_number">Phone Number</a></p>
+                     <p > <a  class="btn btn-info" href="/stellar/send">Stellar Address</a></p>
+                     <p ><a class="btn btn-info" href="/stellar/request">Photo of QR code</a></p>
+                </form>
+              </div>
+            </div>
+
+{% endblock %}
+
+

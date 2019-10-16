@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+
+
+<h1>{{ section.title }}</h1>
+
+<nav>
+
+</nav>
+
+<h3 style="text-align: center;">{% trans "Payment Confirmation" %}</h3>
+<div class="row">
+    <div class="col-md-4 "></div>
+    <div class="col-md-4 ">
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                 <label for="reciever"> Reciever </label>
+                <input type="text" name="reciever" id="reciever" readonly="readonly" style="border:hidden;" value="{{reciever}}">
+            </div>
+            <div class="form-group">
+                <label for="amount">Amount </label>
+                <input type="text" name="amount" id="amount" readonly="readonly" style="border:hidden;" value="{{amount}}">
+
+            </div>
+            <div class="form-group">
+                <label for="currency">Currency </label>
+                <input type="text" name="currency" id="currency" readonly="readonly" style="border:hidden;"  value="{{currency}}">
+            </div>
+            <div class="form-group">
+               <label for="memo">Memo </label>
+                <input type="text" name="memo" id="memo" readonly="readonly" style="border:hidden;" value="{{memo}}">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-info" style="float: left;">
+                    {% trans "Yes" %}
+                </button>
+                <div>
+                    <a class="btn btn-info" style="float: right;" href="/stellar/accounts/">{% trans "No" %}</a>
+                </div>
+
+             </div>
+       </form>
+    </div>
+    <div class="col-md-4 "></div>
+</div><br>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div>
+            <a class="btn btn-info"style= "margin: -36px 76px 10px;"href="/stellar/Enter_recipient/">{% trans "Change Recipient" %}</a>
+        </div>
+        <div>
+             <a class="btn btn-info"style= "margin: 0px 3px 3px;" href="/stellar/Email_address">{% trans "Change Amount" %}</a>
+
+                <a class="btn btn-info" style= "margin: -56px 161px 17px;" href="/stellar/Email_address">{% trans "Change Currency" %}</a>
+        </div>
+            <div>
+                 <a class="btn btn-info" style= "margin: -16px 85px 6px;" href="/stellar/Email_address">{% trans "Change Memo" %}</a>
+            </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+{% endblock %}

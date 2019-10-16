@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+{% block content %}
+
+
+<h1>{{ section.title }}</h1>
+
+<nav>
+<a href="/stellar/contact_create">{% trans "Create Contact" %}</a> |
+<a href="/stellar/get_contacts">{% trans "Get Contacts" %}</a><br \>
+</nav>
+
+<h3 style="text-align: center;">{% trans "Send" %}</h3>
+           <div class="login-page">
+              <div class="form">
+                <form class="login-form" method="POST" action="/stellar/mobile_number/">
+                    {% csrf_token %}
+                  <label>{% trans "Username" %}</label><input type="text" name="to_user" placeholder='to_user' value="{{user.username}}" size="40" />
+                  <label>{% trans "Mobile" %}</label><input type="text" name="mobile" placeholder='{% trans "Mobile" %}' />
+                   <label>{% trans "Amount" %}</label><input type="text" name="amount" placeholder='10.0' value="" size="20" />
+                  <label>{% trans "Currency" %}</label>
+                    <select class="form-control form-control-sm" id="currency" name="currency">
+                        <option>Select</option>
+                        <option value="XLM">XLM</option>
+                        <option value="BTC">BTC</option>
+                        <option value="EURT">EURT</option>
+                        <option value="USDT">USDT</option>
+                    </select>
+                  <label>{% trans "Memo" %}</label><input type="text" name="memo" required data-error="Please enter" placeholder='Memo' value="" size="28"  />
+                  <button>{% trans "Submit" %}</button>
+
+                </form>
+              </div>
+            </div>
+
+{% endblock %}

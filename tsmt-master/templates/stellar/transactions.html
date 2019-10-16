@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% static "" as baseUrl %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
+
+  {% block content %}
+<fieldset class="settinggg">
+    <h2 style="text-align: center;" class='legend'>
+      {% trans "Transaction  Details" %}
+    </h2>
+</fieldset>
+<div class="container">
+    <table class=" table table-striped">
+            <h6 class="address_code_name">{% trans "Accounts" %} :- {{address}}</h6>
+        <tr>
+            <th>Asset</th>
+            <th>{% trans "Amount" %}</th>
+            <th>From</th>
+            <th>To</th>
+        </tr>
+    {% if r %}
+    {% for value in r %}
+        <tr>
+            <td>
+            {% if value.asset_type == 'native' %}
+     Lumen
+  {% else %}
+     {{ value.asset_code}}
+{% endif %}
+        </td>
+        <td>{{ value.amount}}</td>
+            <td>{% if value.from == address  %}
+me  {% else %}
+{{ value.from }}
+{% endif %}</td>
+            <td>{% if value.to == address  %}
+me  {% else %}
+{{ value.to }}
+{% endif %}</td>
+        </tr>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <p><b>  No Transactions </b></p>
+
+        </tr>
+   {% endif %}
+    </table>
+</div>
+{% endblock %}
