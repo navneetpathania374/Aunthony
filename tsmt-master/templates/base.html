@@ -51,6 +51,7 @@
 </ul>
 <input type="submit" value="Go" />
 </form>
+
 </div>
 
   <div id="body">
@@ -72,7 +73,18 @@
 
 {% include "nav_0.html" with active_link='link2' %}
 
-<div class="content_side">{% block content %}{% endblock %}</div>
+<div class="content_side">
+    {% if messages %}
+
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+
+        {% endfor %}
+
+    {% endif %}
+    {% block content %}{% endblock %}</div>
 
 </div>
 </body>

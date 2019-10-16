@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseRedirect
 from stellar_base.keypair import Keypair
 from stellar.models import Accounts
+from django.contrib import messages
 import requests,sys,qrcode,os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -99,7 +100,13 @@ def register(request):
         jname = request.POST['zname']
         name = str(fname) + " " + str(lname)
         print(password, username, email)
-        if password and username:
+        if User.objects.filter(username=username).exists():
+            messages.info(request,'username aready taken')
+            return redirect('/register/')
+        elif Accounts.objects.filter(email=email).exists():
+            messages.info(request,'Email already exists')
+            return redirect('/register/')
+        else:
             try:
                 user = User.objects.create_user(username=username, password=password,first_name=fname,last_name=lname)
                 r = user.save()
@@ -118,13 +125,14 @@ def register(request):
                 img.save(file)
                 p = Accounts(user_name=username,name=name,address=account_id,seed=seed,qrcode_file=file,mobile_number=jname,email=email)
                 p.save()
+                messages.success(request, f'Account is created succesfully for {username}')
                 if r is None:
-                    return render(request,'registration_complete.html')
+
+                    return redirect('/register/')
             except:  # IntegrityError:
-                return render(request,'registration_form.html')
-        else:
-            print("create_user does not contain fields")
-            return render(request,'registration_form.html')
+                messages.warning(request, 'Account is not created')
+                return redirect('/register/')
+
        # request was empty
 
     return render(request,'registration_form.html')
